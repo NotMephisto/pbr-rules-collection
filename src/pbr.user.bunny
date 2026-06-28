@@ -11,7 +11,7 @@ _ret=1
 mkdir -p "${TARGET_DL_FILE%/*}"
 
 [ -s "$TARGET_DL_FILE" ] || \
-     curl -s --interface "$TARGET_INTERFACE" -sf "$TARGET_URL" |
+     curl -sS --interface "$TARGET_INTERFACE" "$TARGET_URL" |
       gzip > "$TARGET_DL_FILE"
 
 [ -s "$TARGET_DL_FILE" ] || return 1
