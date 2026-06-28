@@ -33,3 +33,5 @@ for ver in $vers; do
 
     nft add element "$TARGET_TABLE" "$nftset" { ${params//$'\n'/, } } || _ret=1
 done
+
+return $_ret

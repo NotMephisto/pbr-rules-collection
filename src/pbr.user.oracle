@@ -1,8 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2015,SC3003,SC3060
 
-TARGET_URL='https://raw.githubusercontent.com/MISP/misp-warninglists/refs/heads/main/lists/akamai/list.json'
-TARGET_DL_FILE='/var/pbr_tmp_akamai.gz'
+TARGET_URL='https://raw.githubusercontent.com/123jjck/cdn-ip-ranges/refs/heads/main/oracle/oracle_plain.txt'
+TARGET_DL_FILE='/var/pbr_tmp_oracle.gz'
 TARGET_TABLE='inet fw4'
 TARGET_INTERFACE='awg0'
 
@@ -11,7 +11,7 @@ _ret=1
 mkdir -p "${TARGET_DL_FILE%/*}"
 
 [ -s "$TARGET_DL_FILE" ] || \
-     uclient-fetch -qO- "$TARGET_URL" | \
+     curl -s --interface "$TARGET_INTERFACE" "$TARGET_URL" | \
       gzip > "$TARGET_DL_FILE"
 
 [ -s "$TARGET_DL_FILE" ] || return 1
@@ -19,7 +19,7 @@ mkdir -p "${TARGET_DL_FILE%/*}"
 [ "$(uci get pbr.config.ipv6_enabled)" = "1" ] && vers="4 6" || vers="4"
 
 for ver in $vers;do
-    params=$(zcat "$TARGET_DL_FILE" | jsonfilter -e '@.list[*]' | awk -v v="$ver" '(v == 4 && !/:/ || v == 6 && /:/)')
+    params=$(zcat "$TARGET_DL_FILE" | awk -v v="$ver" '(v == 4 && !/:/ || v == 6 && /:/) && NF')
     [ -n "$params" ] && _ret=0 || continue
     nftset="pbr_${TARGET_INTERFACE}_${ver}_dst_ip_user"
     nft "add element $TARGET_TABLE $nftset { ${params//$'\n'/, } }" || _ret=1
