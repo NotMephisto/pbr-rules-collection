@@ -6,13 +6,13 @@ TARGET_INTERFACE='awg0'
 
 _ret=1
 
-mkdir -p "${TARGET_DL_FILE%/*}"
-
 [ "$(uci get pbr.config.ipv6_enabled)" = "1" ] && vers="4 6" || vers="4"
 
 for ver in $vers;do
     TARGET_URL="https://iplist.opencck.org/?format=text&data=cidr${ver}&site=discord.gg&site=discord.media"
-    TARGET_DL_FILE="/var/pbr_tmp_discord_cidr${ver}.gz"    
+    TARGET_DL_FILE="/var/pbr_tmp_discord_cidr${ver}.gz"   
+    
+    mkdir -p "${TARGET_DL_FILE%/*}"
     	    
     [ -s "$TARGET_DL_FILE" ] || \
 	uclient-fetch -qO- "$TARGET_URL" | \

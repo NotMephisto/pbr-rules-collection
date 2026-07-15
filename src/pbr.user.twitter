@@ -11,8 +11,8 @@ _ret=1
 mkdir -p "${TARGET_DL_FILE%/*}"
 
 [ -s "$TARGET_DL_FILE" ] || \
-     uclient-fetch -qO- "$TARGET_URL" | \
-      gzip > "$TARGET_DL_FILE"
+    uclient-fetch -qO- "$TARGET_URL" | \
+     gzip > "$TARGET_DL_FILE"
 
 [ -s "$TARGET_DL_FILE" ] || return 1
 
