@@ -2,7 +2,7 @@
 # shellcheck disable=SC2015,SC3003,SC3060
 
 TARGET_TABLE='inet fw4'
-TARGET_INTERFACE='wg0'
+TARGET_INTERFACE='awg0'
 
 _ret=1
 
@@ -30,3 +30,5 @@ for ver in $vers;do
     nftset="pbr_${TARGET_INTERFACE}_${ver}_dst_ip_user"
     nft "add element $TARGET_TABLE $nftset { ${params//$'\n'/, } }" || _ret=1
 done
+
+return $_ret
