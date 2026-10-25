@@ -2,7 +2,7 @@
 # shellcheck disable=SC2015,SC3003,SC3060
 
 TARGET_TABLE='inet fw4'
-TARGET_INTERFACE='wg0'
+TARGET_INTERFACE='awg0'
 
 _ret=1
 
