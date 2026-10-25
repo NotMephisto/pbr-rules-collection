@@ -4,7 +4,7 @@
 TARGET_URL='https://raw.githubusercontent.com/MISP/misp-warninglists/refs/heads/main/lists/apple/list.json'
 TARGET_DL_FILE='/var/pbr_tmp_apple.gz'
 TARGET_TABLE='inet fw4'
-TARGET_INTERFACE='wg0'
+TARGET_INTERFACE='awg0'
 
 _ret=1
 
