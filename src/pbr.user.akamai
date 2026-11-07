@@ -2,7 +2,7 @@
 # shellcheck disable=SC2015,SC3003,SC3060
 
 TARGET_URL='https://raw.githubusercontent.com/MISP/misp-warninglists/refs/heads/main/lists/akamai/list.json'
-TARGET_DL_FILE='/var/pbr_tmp_akamai.gz'
+TARGET_DL_FILE='/var/pbr/pbr_tmp_akamai.gz'
 TARGET_TABLE='inet fw4'
 TARGET_INTERFACE='awg0'
 

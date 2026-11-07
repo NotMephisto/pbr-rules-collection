@@ -2,7 +2,7 @@
 # shellcheck disable=SC2015,SC3003,SC3060
 
 TARGET_URL='https://gitlab.com/fernvenue/telegram-cidr-list/-/raw/master/CIDR.txt'
-TARGET_DL_FILE='/var/pbr_tmp_telegram_cidr.gz'
+TARGET_DL_FILE='/var/pbr/pbr_tmp_telegram_cidr.gz'
 TARGET_TABLE='inet fw4'
 TARGET_INTERFACE='awg0'
 
