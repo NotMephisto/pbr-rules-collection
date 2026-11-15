@@ -14,11 +14,12 @@ mkdir -p "${TARGET_DL_FILE%/*}"
 
 for ver in $vers;do
      cache_file="${TARGET_DL_FILE}_v${ver}.gz"
+     url="https://www.cloudflare.com/ips-v${ver}/"
 
      if [ ! -s "$cache_file" ] || ! gzip -t "$cache_file" 2>/dev/null; then
        tmp_file=$(mktemp "${cache_file}.XXXXXX") || return 1
 
-       if curl -fLsS --interface "$TARGET_INTERFACE" -o "$tmp_file" "$TARGET_URL" &&
+       if curl -fLsS --interface "$TARGET_INTERFACE" -o "$tmp_file" "$url" &&
           [ -s "$tmp_file" ] &&
           gzip "$tmp_file" &&
           mv -f "$tmp_file.gz" "$cache_file"; then
