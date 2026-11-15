@@ -1,8 +1,9 @@
 #!/bin/sh
 # shellcheck disable=SC2015,SC3003,SC3060
 
-TARGET_TABLE='inet fw4'
-TARGET_INTERFACE='awg0'
+SETTINGS_FILE='/usr/share/pbr/settings'
+
+. "$SETTINGS_FILE" || return 1
 
 _ret=1
 
@@ -14,13 +15,19 @@ for ver in $vers; do
     TARGET_URL="https://iplist.opencck.org/?format=text&data=cidr${ver}&site=discord.gg&site=discord.media"
     TARGET_DL_FILE="/var/pbr/pbr_tmp_discord_cidr${ver}.gz"       
     	    
-    [ -s "$TARGET_DL_FILE" ] || \
-	 uclient-fetch -qO- "$TARGET_URL" | \
-	  gzip > "$TARGET_DL_FILE"
+    if [ ! -s "$TARGET_DL_FILE" ] || ! gzip -t "$TARGET_DL_FILE" 2>/dev/null; then
+       tmp_file=$(mktemp "${TARGET_DL_FILE}.XXXXXX") || return 1
 
-    [ -s "$TARGET_DL_FILE" ] || return 1
- 	
-    #eval "params${ver}=\"$(zcat "$TARGET_DL_FILE" | awk -v v="$ver" '(v == 4 && !/:/ && NF) || (v == 6 && /:/ && NF)')\""   
+       if curl -fLsS --interface "$TARGET_INTERFACE" -o "$tmp_file" "$TARGET_URL" &&
+          [ -s "$tmp_file" ] &&
+          gzip "$tmp_file" &&
+          mv -f "$tmp_file.gz" "$TARGET_DL_FILE"; then
+          :
+       else
+          rm -f "$tmp_file" "$tmp_file.gz"
+          return 1
+       fi
+    fi 	
    
     params=$(zcat "$TARGET_DL_FILE" | awk -v v="$ver" '(v == 4 && !/:/) || (v == 6 && /:/) && NF')
     [ -n "$params" ] && _ret=0 || continue

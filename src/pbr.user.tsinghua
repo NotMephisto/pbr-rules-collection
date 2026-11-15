@@ -1,8 +1,9 @@
 #!/bin/sh
 # shellcheck disable=SC2015,SC3003,SC3060
 
-TARGET_TABLE='inet fw4'
-TARGET_INTERFACE='awg0'
+SETTINGS_FILE='/usr/share/pbr/settings'
+
+. "$SETTINGS_FILE" || return 1
 
 _ret=1
 

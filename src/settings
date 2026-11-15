@@ -1,0 +1,5 @@
+# NFT settings
+TARGET_TABLE='inet fw4'
+
+# PBR interface name
+TARGET_INTERFACE='tun0'
