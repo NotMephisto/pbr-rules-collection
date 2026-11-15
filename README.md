@@ -7,6 +7,12 @@ fernvenue's custom PBR (Policy Based Routing) rules collection.
 
 All configuration files are written according to the standards in the [Policy-Based Routing OpenWrt Package Documentation: Custom User Files](https://docs.openwrt.melmac.net/pbr/1.1.8/#CustomUserFiles) and have been tested on OpenWrt.
 
+## Installation
+
+```bash
+wget -O /tmp/install.sh https://raw.githubusercontent.com/NotMephisto/pbr-rules-collection/master/install.sh && sh /tmp/install.sh
+```
+
 ## Usage
 
-Just simply download the rule file from [src](./src/), and replace the `TARGET_INTERFACE` with your specific outbound interface. You can also go check my blog: [Using PBR to Route Traffic on OpenWrt](https://blog.fernvenue.com/archives/using-pbr-to-route-traffic-on-openwrt/).
+Just run the script, type your interface and that's it!
