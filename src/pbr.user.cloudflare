@@ -1,6 +1,7 @@
 #!/bin/sh
 # shellcheck disable=SC2015,SC3003,SC3060
 
+TARGET_DL_FILE='/var/pbr/pbr_tmp_cloudflare'
 SETTINGS_FILE='/usr/share/pbr/settings'
 
 . "$SETTINGS_FILE" || return 1
